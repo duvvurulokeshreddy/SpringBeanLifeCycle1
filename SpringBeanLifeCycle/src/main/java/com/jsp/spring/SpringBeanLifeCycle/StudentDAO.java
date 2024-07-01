@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 public class StudentDAO {
 
@@ -81,14 +82,16 @@ public class StudentDAO {
 	public void deleteRow(int studentId) throws ClassNotFoundException, SQLException {
 		System.out.println("Delete The Record from the table :");
 //		dbConnections();
+//		Execute The Query
 		Statement stmt = conn.createStatement();
 		int rs = stmt.executeUpdate("delete from esnew.hotelstudentinfo where studentId=" + studentId);
 		System.out.println("Delete The Record From The table : " + studentId);
 
 	}
-
+@PreDestroy
 	public void closeConnection() {
 		try {
+//			cleaning the data
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
